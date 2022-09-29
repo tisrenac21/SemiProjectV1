@@ -3,7 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>세미프로젝트</title>
-<link th:href="@{static/css/base.css}" rel="stylesheet" />
+<link th:href="@{static/css/base.css}" rel="stylesheet">
+<style>
+	/* 회원가입 폼에 대한 스타일 */
+	#join {
+		width: 300px;
+		margin: 0 auto;
+		}
+	#join div { margin-bottom: 10px; }
+	#join label { display: inline-block; width: 110px; text-align: right; font-weight: bold; }
+	#join input { padding: 3px; }
+	#okbtn { margin-left: 115px;}
+</style>
 </head>
 <body>
 <div id = "container">
@@ -56,7 +67,6 @@
 	}
 </script>
 
-<th:block th:include = "layout/footer"></th:block>
 </div>
 </body>
 </html>
