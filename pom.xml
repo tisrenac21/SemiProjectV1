@@ -118,10 +118,17 @@
 		
 		<!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring4 -->
 		<dependency>
-    <groupId>org.thymeleaf</groupId>
-   		<artifactId>thymeleaf-spring4</artifactId>
-    	<version>3.0.15.RELEASE</version>
-	</dependency>
+    		<groupId>org.thymeleaf</groupId>
+   			<artifactId>thymeleaf-spring4</artifactId>
+    		<version>3.0.15.RELEASE</version>
+		</dependency>
+		<!-- thymeleaf-layout-dialect -->
+		<dependency>
+		    <groupId>nz.net.ultraq.thymeleaf</groupId>
+		    <artifactId>thymeleaf-layout-dialect</artifactId>
+		    <version>3.1.0</version>
+		</dependency>
+
 
 	
 		<!-- Test -->
