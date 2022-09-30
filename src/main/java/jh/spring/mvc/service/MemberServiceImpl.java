@@ -23,4 +23,9 @@ public class MemberServiceImpl implements MemberService {
 		return isIntert;
 	}
 
+	@Override
+	public MemberVO readOneMember() {
+		return mdao.selectOneMember();
+	}
+
 }
