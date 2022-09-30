@@ -25,7 +25,6 @@ public class MemberController {
 	public String join() {
 		LOGGER.info("join 호출");
 		
-		
 		return "join/join";
 	}
 	
