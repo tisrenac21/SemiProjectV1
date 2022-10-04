@@ -24,11 +24,17 @@ public class MemberController {
 	protected Logger LOGGER =
 			LoggerFactory.getLogger(getClass());
 	
+	
+	// 로그인 상태가 아니면 ->  join/join
+	// 로그인 상태면 -> "join/myinfo
 	@GetMapping("/join")
-	public String join() {
-		LOGGER.info("join 호출");
+	public String join(HttpSession session) {
+		String returnPage = "join/join";
 		
-		return "join/join";
+		if(session.getAttribute("m") != null) {
+			returnPage = "redirect:/myinfo";
+		}
+		return returnPage;
 	}
 	
 	@PostMapping("/join")
