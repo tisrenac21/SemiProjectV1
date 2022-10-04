@@ -2,13 +2,20 @@
 	#container{
 		width: 950px;
 		margin: 0 auto;
-		border: 1px solid red;
 	}
 	
 	/* header 스타일 */
+	header h1 {
+	text-align: center;
+	font-family: batang;
+	font-weight: bold;
+	font-style: italic;
+	color: darkyellow;
+	}
 	nav ul { list-style-type: none;	padding-bottom: 15px; }
 	nav ul li { float: left; margin-left: 100px; }
 	hr { clear: both; background: black; height: 2px; }
+	
 	
 	/* main 스타일 */
 	#main { min-height: 550px; }
