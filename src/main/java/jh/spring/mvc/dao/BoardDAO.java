@@ -8,7 +8,7 @@ public interface BoardDAO {
 
 	int registerPost(BoardVO bvo);
 
-	List<BoardVO> selectBoard();
+	List<BoardVO> selectBoard(int snum);
 
 	BoardVO selectOneBoard(String boardNo);
 
