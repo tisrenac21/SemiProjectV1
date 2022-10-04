@@ -42,7 +42,7 @@ layout:decorate="~{fragments/layout}">
 		</div>
 		<div>
 			<label for = "mid">작성자</label>
-			<input type = "text" name = "memberId" id = "mid" value = "관리자">
+			<input type = "text" name = "memberId" id = "mid" th:value = "${session.m.memberId}" readonly="readonly">
 		</div>
 		<div>
 			<label for = "cnt" class = "dragup">본문</label>

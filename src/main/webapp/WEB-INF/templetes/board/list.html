@@ -60,6 +60,7 @@ layout:decorate="~{fragments/layout}">
 		</colgroup>
 		<thead>
 			<tr th:unless="${session.isEmpty()}"><td colspan = "5" class = "newbtn"><button type = "button" id = "newbtn">새 글 쓰기</button></td></tr>
+<!-- 			<tr><td colspan = "5" class = "newbtn"><button type = "button" id = "newbtn" th:disabled = "${session.m == null}">새 글 쓰기</button></td></tr> -->
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
