@@ -59,7 +59,7 @@ layout:decorate="~{fragments/layout}">
 			<col style = "width: 10%">
 		</colgroup>
 		<thead>
-			<tr><td colspan = "5" class = "newbtn"><button type = "button" id = "newbtn">새 글 쓰기</button></td></tr>
+			<tr th:unless="${session.isEmpty()}"><td colspan = "5" class = "newbtn"><button type = "button" id = "newbtn">새 글 쓰기</button></td></tr>
 			<tr>
 				<th>번호</th>
 				<th>제목</th>

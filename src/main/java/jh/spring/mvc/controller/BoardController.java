@@ -1,5 +1,7 @@
 package jh.spring.mvc.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +35,14 @@ public class BoardController {
 	}
 	
 	@GetMapping("/write")
-	public String write() {
-		LOGGER.info("write 호출");
-		return "board/write";
+	public String write(HttpSession session) {
+		String returnPage = "redirect:/login";
+		
+		if(session.getAttribute("m") != null) {
+			returnPage = "board/write";
+		}
+		
+		return returnPage;
 	}
 	
 	@PostMapping("/write")
