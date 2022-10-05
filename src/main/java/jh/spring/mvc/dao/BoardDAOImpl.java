@@ -1,12 +1,6 @@
 package jh.spring.mvc.dao;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
+import jh.spring.mvc.vo.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +11,10 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import jh.spring.mvc.vo.BoardVO;
+import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository("bdao")
 public class BoardDAOImpl implements BoardDAO {
@@ -67,4 +64,9 @@ public class BoardDAOImpl implements BoardDAO {
 		return jdbcTemplate.queryForObject(sql, param, boardMapper);
 	}
 
+	@Override
+	public int readCountBoard() {
+		String sql = "SELECT CEIL(COUNT(board_no)/25) pages from board";
+		return jdbcTemplate.queryForObject(sql, null, Integer.class);
+	}
 }

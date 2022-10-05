@@ -1,12 +1,11 @@
 package jh.spring.mvc.service;
 
-import java.util.List;
-
+import jh.spring.mvc.dao.BoardDAO;
+import jh.spring.mvc.vo.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jh.spring.mvc.dao.BoardDAO;
-import jh.spring.mvc.vo.BoardVO;
+import java.util.List;
 
 @Service("bsrv")
 public class BoardServiceImpl implements BoardService{
@@ -31,6 +30,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public BoardVO readOneBoard(String boardNo) {
 		return bdao.selectOneBoard(boardNo);
+	}
+
+	@Override
+	public int readCountBoard() {
+		return bdao.readCountBoard();
 	}
 
 }

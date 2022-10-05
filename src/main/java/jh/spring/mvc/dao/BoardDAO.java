@@ -1,8 +1,8 @@
 package jh.spring.mvc.dao;
 
-import java.util.List;
-
 import jh.spring.mvc.vo.BoardVO;
+
+import java.util.List;
 
 public interface BoardDAO {
 
@@ -12,4 +12,5 @@ public interface BoardDAO {
 
 	BoardVO selectOneBoard(String boardNo);
 
+    int readCountBoard();
 }

@@ -1,8 +1,8 @@
 package jh.spring.mvc.service;
 
-import java.util.List;
-
 import jh.spring.mvc.vo.BoardVO;
+
+import java.util.List;
 
 public interface BoardService {
 
@@ -12,4 +12,5 @@ public interface BoardService {
 
 	BoardVO readOneBoard(String boardNo);
 
+    int readCountBoard();
 }
