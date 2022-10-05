@@ -7,11 +7,15 @@
 	/* header 스타일 */
 	header h1 {
 	text-align: center;
-	font-family: batang;
-	font-weight: bold;
-	font-style: italic;
-	color: darkyellow;
 	}
+	header h1 a {
+		font-family: "Agency FB";
+		font-weight: bold;
+		font-style: italic;
+		color: #676767;
+	}
+	header h1 a:link {  text-decoration: none; }
+
 	nav ul { list-style-type: none;	padding-bottom: 15px; }
 	nav ul li { float: left; margin-left: 100px; }
 	hr { clear: both; background: black; height: 2px; }
@@ -24,7 +28,7 @@
 	footer p { text-align: center; }
 	
 	/* 링크 스타일 */
-	a { font-weight: bold }
-	a:link { text-decoration: none; color: black; }
-	a:visited { text-decoration: none; color: black; }
-	a:hover { text-decoration: underline; color: blue; }
+	nav a { font-weight: bold }
+	nav a:link { text-decoration: none; color: black; }
+	nav a:visited { text-decoration: none; color: black; }
+	nav a:hover { text-decoration: underline; color: blue; }
