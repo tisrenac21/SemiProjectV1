@@ -1,7 +1,7 @@
 package jh.spring.mvc.controller;
 
-import javax.servlet.http.HttpSession;
-
+import jh.spring.mvc.service.BoardService;
+import jh.spring.mvc.vo.BoardVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import jh.spring.mvc.service.BoardService;
-import jh.spring.mvc.vo.BoardVO;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class BoardController {
@@ -37,12 +36,31 @@ public class BoardController {
 	/* i page : m번째 ~ n번째 */
 	/* snum = (i - 1) * 25 + 1 */
 
+	/* 현재 페이지에 따라서 보여줄 페이지 블럭 결정 */
+	/* ex) 총 페이지 수가 27일 때 */
+	/* cpg = 1 : 1 2 3 4 5 6 7 8 9 10 */
+	/* cpg = 5 : 1 2 3 4 5 6 7 8 9 10 */
+	/* cpg = 9 : 1 2 3 4 5 6 7 8 9 10 */
+	/* cpg = 10 : 1 2 3 4 5 6 7 8 9 10 */
+	/* cpg = 11 : 11 12 13 14 15 16 17 18 19 20 */
+	/* cpg = 17 : 11 12 13 14 15 16 17 18 19 20 */
+	/* cpg = 23 : 21 22 23 24 25 26 27 */
+	/* cpg = 26 : 21 22 23 24 25 26 27 */
+	/* cpg = n : ? ?+1 ?+2 ... ?+9 */
+	/* stpgn = ((cpg - 1) / 10) * 10 + 1 */
+
+
 	@GetMapping("/list")
 	public String list(Model m, String cpg) {
 		int perPage = 25;
-		int snum = (Integer.parseInt(cpg)-1) * perPage;
+		if (cpg == null || cpg.equals("")) cpg = "1";
+		int cpage = Integer.parseInt(cpg);
+		int snum = (cpage-1) * perPage;
+		int stpgn = ((cpage - 1) / 10) * 10 + 1;
 		
 		m.addAttribute("bdlist", bsrv.readBoard(snum));
+		m.addAttribute("stpgn", stpgn);
+		/*m.addAttribute("cpg", Integer.parseInt(cpg));*/
 		
 		return "board/list";
 	}

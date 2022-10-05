@@ -78,7 +78,7 @@ listbtn.addEventListener('click', golist)
 updatebtn.addEventListener('click', goupdate)
 deletebtn.addEventListener('click', godelete)
 
-function golist() { location.href = '/list?cpg=1' }
+function golist() { location.href = '/list' }
 function goupdate() {
 	if(confirm('수정 하시겠습니까?')) 
 		{ location.href = '/upd?boardNo=[[${param.boardNo}]]' };
