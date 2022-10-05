@@ -13,4 +13,6 @@ public interface BoardDAO {
 	BoardVO selectOneBoard(String boardNo);
 
     int readCountBoard(String fkey, String fval);
+
+	int deleteBoard(String boardNo);
 }

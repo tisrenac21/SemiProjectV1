@@ -60,8 +60,10 @@ layout:decorate="~{fragments/layout}">
 		</div>
 		<div><label></label>
 			<button type = "button" id = "listbtn">목록</button>
+			<th:block th:if="${not session.isEmpty() and session.m.memberId == bd.memberId}">
 			<button type = "button" id = "updatebtn">수정</button>
 			<button type = "button" id = "deletebtn">삭제</button>
+			</th:block>
 		</div>
 	</div>
 </div>
@@ -75,8 +77,8 @@ let deletebtn = document.getElementById('deletebtn');
 let cnts = document.querySelector('#cnts');
 
 listbtn.addEventListener('click', golist)
-updatebtn.addEventListener('click', goupdate)
-deletebtn.addEventListener('click', godelete)
+updatebtn?.addEventListener('click', goupdate)
+deletebtn?.addEventListener('click', godelete)
 
 function golist() { location.href = '/list' }
 function goupdate() {

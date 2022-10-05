@@ -51,10 +51,11 @@ layout:decorate="~{fragments/layout}">
 </th:block>
 
 <th:block layout:fragment="main">
-<div id = "main" th:with="cpg=${(param.cpg == null)? 1:T(java.lang.Integer).parseInt(param.cpg)}">
-	<h1>게시판 목록<!-- ([[${param.cpg}]] / [[${stpgn}]] / [[${pages}]] / [[${param.fkey}]] / [[${param.fval}]])--></h1>
-
-	<table>
+	<div id="main" th:with="cpg=${(param.cpg == null or #strings.equals(param.cpg,''))? 1: T(java.lang.Integer).parseInt(param.cpg)}">
+		<h1 th:with="qry=(${#httpServletRequest.queryString})">
+			게시판 목록([[${param.cpg}]] / [[${stpgn}]] / [[${pages}]] / [[${param.fval}]] / [[${fqry}]])
+		</h1>
+		<table>
 		<colgroup>
 			<col style = "width: 10%">
 			<col style = "width: 50%">
@@ -96,9 +97,9 @@ layout:decorate="~{fragments/layout}">
 			</tr>
 			<tr>
 				<td colspan = "5" class ="pgnav">
-					<a th:if="${cpg > 1}" th:href="@{/list(cpg=1,fkey=${param.fkey},fval=${param.fval})}">▕◀</a>
-					<a th:if="${cpg > 10}" th:href="@{/list(cpg=${cpg - 10},fkey=${param.fkey},fval=${param.fval})}">◀</a>
-					<a th:if="${cpg > 1}" th:href="@{/list(cpg=${cpg - 1},fkey=${param.fkey},fval=${param.fval})}">◁</a>
+					<a th:if="${cpg > 1}" th:href="@{'/list?cpg=1' + ${fqry}}">▕◀</a>
+					<a th:if="${cpg > 10}" th:href="@{'/list?cpg=' + ${cpg - 10} + ${fqry}}">◀</a>
+					<a th:if="${cpg > 1}" th:href="@{'/list?cpg=' + ${cpg - 1} + ${fqry}}">◁</a>
 					<th:block th:each="i: ${#numbers.sequence(0, 9)}">
 						<th:block th:if="${(stpgn + i) <= pages}">
 						<span th:text="${stpgn + i}" th:if="${cpg == (stpgn + i)}" class="cpage"></span>
@@ -107,9 +108,9 @@ layout:decorate="~{fragments/layout}">
 						</span>
 						</th:block>
 					</th:block>
-					<a th:if="${cpg < pages}" th:href="@{/list(cpg=${cpg + 1},fkey=${param.fkey},fval=${param.fval})}">▷</a>
-					<a th:if="${cpg < (pages - 10)}" th:href="@{/list(cpg=${cpg + 10},fkey=${param.fkey},fval=${param.fval})}">▶</a>
-					<a th:if="${cpg != pages}" th:href="@{/list(cpg=${pages},fkey=${param.fkey},fval=${param.fval})}">▶▏</a>
+					<a th:if="${cpg < pages}" th:href="@{'/list?cpg=' + ${cpg + 1} + ${fqry}}">▷</a>
+					<a th:if="${cpg < (pages - 10)}" th:href="@{'/list?cpg=' + ${cpg + 10} + ${fqry}}">▶</a>
+					<a th:if="${cpg != pages}" th:href="@{'/list?cpg='+${pages} + ${fqry}}">▶▏</a>
 				</td>
 			</tr>
 		</tbody>

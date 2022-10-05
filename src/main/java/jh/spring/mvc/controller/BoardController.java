@@ -63,7 +63,7 @@ public class BoardController {
 		m.addAttribute("bdlist", bsrv.readBoard(fkey, fval, snum));
 		m.addAttribute("stpgn", stpgn);
 		m.addAttribute("fqry", "&fkey="+ fkey +"&fval="+ fval);
-		/*m.addAttribute("cpg", Integer.parseInt(cpg));*/
+		//m.addAttribute("cpg", Integer.parseInt(cpg));
 		
 		return "board/list";
 	}
@@ -84,6 +84,19 @@ public class BoardController {
 			returnPage = "board/write";
 		}
 		
+		return returnPage;
+	}
+
+	@GetMapping("/del")
+	public String remove(HttpSession session, String boardNo){
+		String returnPage = "redirect:/list?cpg=1";
+
+		if(session.getAttribute("m") == null){
+			returnPage = "redirect:/login";
+		}
+		else {
+			bsrv.removeBoard(boardNo);
+		}
 		return returnPage;
 	}
 	
