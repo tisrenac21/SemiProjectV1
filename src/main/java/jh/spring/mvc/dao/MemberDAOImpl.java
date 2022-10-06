@@ -1,7 +1,9 @@
 package jh.spring.mvc.dao;
 
 import jh.spring.mvc.vo.MemberVO;
+import jh.spring.mvc.vo.Zipcode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -11,6 +13,9 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository("mdao")
 public class MemberDAOImpl implements MemberDAO {
@@ -19,6 +24,8 @@ public class MemberDAOImpl implements MemberDAO {
 	private JdbcTemplate jdbcTemplate;
 	private SimpleJdbcInsert simpleInsert;
 	private NamedParameterJdbcTemplate jdbcNameTemplate;
+	private RowMapper<Zipcode> zipcodeMapper =
+			BeanPropertyRowMapper.newInstance(Zipcode.class);
 	
 	/*
 	 * private RowMapper<MemberVO> memberMapper =
@@ -76,6 +83,17 @@ public class MemberDAOImpl implements MemberDAO {
 		Object[] param = new Object[] { mid };
 		return jdbcTemplate.queryForObject(sql,param, Integer.class);
 	}
+
+	@Override
+	public List<Zipcode> selectZipcode(String dong) {
+		String sql = "select * from zipcode_2013 where dong like :dong";
+
+		Map<String, Object> param = new HashMap<>();
+		param.put("dong",dong);
+
+		return jdbcNameTemplate.query(sql,param,zipcodeMapper);
+	}
+
 
 
 }

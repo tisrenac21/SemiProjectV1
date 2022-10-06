@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 public class MemberController {
@@ -90,6 +92,9 @@ public class MemberController {
 	}
 	
 	// 아이디 중복검사 - REST api 이용
+	// 요청 URL : checkmid?mid=검사할아이디
+	// 결과 = 0 : 아이디 사용 가능
+	// 결과 = 1 : 아이디 사용 불가
 	@ResponseBody
 	@GetMapping("/checkmid")
 	public String checkmid(String mid){
@@ -100,6 +105,22 @@ public class MemberController {
 		}
 
 		return result;
+	}
+
+
+	// 우편번호 검색
+	// 요청 URL : /findzipcode?dong=조회할_동이름
+	// 요청 결과: JSON 객체
+	@ResponseBody
+	@GetMapping("/findzip")
+	public void findZip(String dong, HttpServletResponse res) throws IOException {
+
+		// 응답유형은 json으로 설정
+		res.setContentType("application/json; charset=UTF-8");
+
+		// 응답 결과를 view 없이 브라우저로 바로 출력
+		res.getWriter().print(
+		msrv.findZipcode(dong));
 	}
 
 }

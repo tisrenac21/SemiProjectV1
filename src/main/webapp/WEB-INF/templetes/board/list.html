@@ -46,7 +46,13 @@ layout:decorate="~{fragments/layout}">
 	}
 	.alignleft { display: inline-block; width: 89%; text-align: left; }
 
+	#bdt a { color: #4f4f4f; text-decoration: none; }
+	#bdt a:hover { text-decoration: underline; }
+
 	.pgnav a { color: black; text-decoration: none; }
+	.pgnav a:hover { text-decoration: underline; }
+
+
 </style>
 </th:block>
 
@@ -72,8 +78,8 @@ layout:decorate="~{fragments/layout}">
 						<option value="memberId">작성자</option>
 						<option value="content">내용</option>
 					</select>
-					<input type="text" name="fval" id="fval">
-					<button type="button" id="findbtn">검색하기</button>
+					<input type="text" name="fval" placeholder="검색할 내용을 입력하세요." id="fval">
+					<button type="button" id="findbtn">검색</button>
 				</span>
 				<button type = "button" id = "newbtn">새 글 쓰기</button>
 			</td>
@@ -90,7 +96,7 @@ layout:decorate="~{fragments/layout}">
 		<tbody>
 			<tr th:each="b: ${bdlist}">
 				<td th:text="${b.boardNo}"></td>
-				<td><a th:text = "${b.title}" th:href="@{/view(boardNo=${b.boardNo})}"></a></td>
+				<td id="bdt"><a th:text = "${b.title}" th:href="@{/view(boardNo=${b.boardNo})}"></a></td>
 				<td th:text="${b.memberId}"></td>
 				<td th:text="${b.regDate}"></td>
 				<td th:text="${b.readcount}"></td>
