@@ -60,21 +60,34 @@
 	memberid.addEventListener('blur', () => {
 		let qry = "?mid="+memberid.value;
 
-		fetch('/checkmid'+qry) // ajax 호출
+		let req = new XMLHttpRequest(); // 1. ajax 객체 생성
+		req.onreadystatechange = () => { // 4. 응답 받은 후 처리
+			// readayState: 0, 1(서버연결), 2(요청보냄), 3(요청처리), 4(처리완료, 응답완료)
+			if(req.readyState == XMLHttpRequest.DONE) {
+				if (req.status == 200) {
+					let text = req.response;
+					checkmemberid(text);
+				}
+			}
+		};
+
+		req.open('get', '/checkmid' + qry); // 2. 서버 요청방식 정의
+		req.send(); // 3. 서버 요청 보냄.
+
+		/*fetch('/checkmid'+qry) // ajax 호출
 				.then(response => response.text()) // 결과 받음
-				.then(text => checkmemberid(text)); // 함수에 넘김
+				.then(text => checkmemberid(text)); // 함수에 넘김*/
 	});
 
-	function checkmemberid(result){
+	function checkmemberid(result) {
 		let msg = document.querySelector("#chkmsg");
 		msg.style.marginLeft = 90 + 'px';
 
-		if (result == '1'){
+		if (result == '1') {
 			msg.innerHTML = '중복된 아이디입니다.';
 			msg.style.color = 'red';
 			document.join.chkmid.value = 'no';
-		}
-		else if (result == 0) {
+		} else if (result == 0) {
 			msg.innerHTML = '사용 가능한 아이디입니다.';
 			msg.style.color = 'blue';
 			document.join.chkmid.value = 'yes';
