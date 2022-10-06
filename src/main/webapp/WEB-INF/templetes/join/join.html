@@ -22,46 +22,85 @@
 <div id = "main">
 	<h1>회원가입</h1>
 	<form name="join" id = "join">
-		<div><label for = "uid">아이디</label>
-		<input type = "text" name = "memberId" id = "uid" /></div>
+		<div>
+			<label for = "mid">아이디</label>
+			<input type = "text" name = "memberId" id = "mid" />
+			<span id = "chkmsg"></span>
+		</div>
 		
-		<div><label for = "pwd">비밀번호</label>
-		<input type = "password" name = "password" id = "pwd" /></div>
+		<div>
+			<label for = "pwd">비밀번호</label>
+			<input type = "password" name = "password" id = "pwd" />
+		</div>
 		
-		<div><label for = "rpw">비밀번호 확인</label>
-		<input type = "password" name = "repwd" id = "rpw" /></div>
+		<div>
+			<label for = "rpw">비밀번호 확인</label>
+			<input type = "password" name = "repwd" id = "rpw" />
+			<span id = "pwdmsg"></span>
+		</div>
+
 		
 		<div><label for = "nm">이름</label>
 		<input type = "text" name = "memberName" id = "nm" /></div>
 		
 		<div><label for = "eml">이메일</label>
 		<input type = "text" name = "email" id = "eml" /></div>
-		
+
+		<input type="hidden" name="chkmid" value="no">
 		<div><button type = "button" id = "okbtn">입력완료</button>
 		<button type = "reset">다시입력</button></div>
 	</form>
 </div>
 	<th:block th:include = "layout/footer"></th:block>
 
-<script type="text/javascript">
+<script>
+	// 아이디 중복검사
+	// /checkmid?mid=??? 를 이용해서 중복여부를 확인
+	let memberid = document.querySelector("#mid");
+	memberid.addEventListener('blur', () => {
+		let qry = "?mid="+memberid.value;
+
+		fetch('/checkmid'+qry) // ajax 호출
+				.then(response => response.text()) // 결과 받음
+				.then(text => checkmemberid(text)); // 함수에 넘김
+	});
+
+	function checkmemberid(result){
+		let msg = document.querySelector("#chkmsg");
+		msg.style.marginLeft = 90 + 'px';
+
+		if (result == '1'){
+			msg.innerHTML = '중복된 아이디입니다.';
+			msg.style.color = 'red';
+			document.join.chkmid.value = 'no';
+		}
+		else if (result == 0) {
+			msg.innerHTML = '사용 가능한 아이디입니다.';
+			msg.style.color = 'blue';
+			document.join.chkmid.value = 'yes';
+		}
+	}
+
 	var okbtn = document.getElementById("okbtn");
 	okbtn.addEventListener('click', checkjoinfrm);
 	//okbtn엔에 click이라는 이벤트를 걸었을 때의 조건을 지정해준 것.
-	
+
 	function checkjoinfrm(){
-		var uid = document.getElementById("uid");
+		var mid = document.getElementById("mid");
 		var pwd = document.getElementById("pwd");
 		var rpw = document.getElementById("rpw");
 		var nm = document.getElementById("nm");
 		var eml = document.getElementById("eml");
+		var frm = document.join;
 		
-		if(uid.values == '') alert('아이디를 입력하세요.');
+		if(mid.values == '') alert('아이디를 입력하세요.');
 		else if(pwd.value == '') alert('비밀번호를 입력하세요.');
 		else if(rpw.value != pwd.value) alert('비밀번호가 일치하지 않습니다.');
 		else if(nm.value == '') alert('이름을 입력하세요.');
 		else if(eml.value == '') alert('이메일을 입력하세요.');
+		else if(frm.chkmid.value == 'no') alert('아이디 중복검사를 하세요.');
 		else{
-			var frm = document.join;
+
 			frm.method = 'post';
 			frm.submit();
 		}

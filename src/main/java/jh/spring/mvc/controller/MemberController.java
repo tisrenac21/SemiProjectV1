@@ -1,8 +1,8 @@
 package jh.spring.mvc.controller;
 
 
-import javax.servlet.http.HttpSession;
-
+import jh.spring.mvc.service.MemberService;
+import jh.spring.mvc.vo.MemberVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import jh.spring.mvc.service.MemberService;
-import jh.spring.mvc.vo.MemberVO;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class MemberController {
@@ -86,11 +86,20 @@ public class MemberController {
 		}else {
 			returnPage = "redirect:/login";
 		}
-		
-	
-		
-		
 		return returnPage;
+	}
+	
+	// 아이디 중복검사 - REST api 이용
+	@ResponseBody
+	@GetMapping("/checkmid")
+	public String checkmid(String mid){
+		String result = "잘못된 방법으로 호출하였습니다.";
+
+		if(mid != null || !mid.equals("")) {
+			result = msrv.checkMid(mid);
+		}
+
+		return result;
 	}
 
 }

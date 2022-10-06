@@ -39,4 +39,10 @@ public class MemberServiceImpl implements MemberService {
 		return loginResult;
 	}
 
+	@Override
+	public String checkMid(String mid) {
+
+		return String.valueOf(mdao.selectCountMemberId(mid));
+	}
+
 }

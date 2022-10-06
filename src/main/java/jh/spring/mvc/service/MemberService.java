@@ -10,4 +10,5 @@ public interface MemberService {
 
 	boolean checkLogin(MemberVO mvo);
 
+    String checkMid(String mid);
 }

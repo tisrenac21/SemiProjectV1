@@ -1,13 +1,7 @@
 package jh.spring.mvc.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Collections;
-
-import javax.sql.DataSource;
-
+import jh.spring.mvc.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -16,7 +10,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import jh.spring.mvc.vo.MemberVO;
+import javax.sql.DataSource;
 
 @Repository("mdao")
 public class MemberDAOImpl implements MemberDAO {
@@ -74,7 +68,14 @@ public class MemberDAOImpl implements MemberDAO {
 		//객체형으로 값을 넘길 때는 Mapper가 필요하고 자료형으로 넘길때는 integer.class가 필요하다.
 		
 	}
-	
+
+	@Override
+	public int selectCountMemberId(String mid) {
+		String sql = "select count(member_no) cnt from member where member_id = ?";
+
+		Object[] param = new Object[] { mid };
+		return jdbcTemplate.queryForObject(sql,param, Integer.class);
+	}
 
 
 }
