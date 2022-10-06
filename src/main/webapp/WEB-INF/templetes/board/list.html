@@ -53,7 +53,7 @@ layout:decorate="~{fragments/layout}">
 <th:block layout:fragment="main">
 	<div id="main" th:with="cpg=${(param.cpg == null or #strings.equals(param.cpg,''))? 1: T(java.lang.Integer).parseInt(param.cpg)}">
 		<h1 th:with="qry=(${#httpServletRequest.queryString})">
-			게시판 목록([[${param.cpg}]] / [[${stpgn}]] / [[${pages}]] / [[${param.fval}]] / [[${fqry}]])
+			게시판 목록<!--([[${param.cpg}]] / [[${stpgn}]] / [[${pages}]] / [[${param.fval}]] / [[${fqry}]])-->
 		</h1>
 		<table>
 		<colgroup>
@@ -109,7 +109,7 @@ layout:decorate="~{fragments/layout}">
 						</th:block>
 					</th:block>
 					<a th:if="${cpg < pages}" th:href="@{'/list?cpg=' + ${cpg + 1} + ${fqry}}">▷</a>
-					<a th:if="${cpg < (pages - 10)}" th:href="@{'/list?cpg=' + ${cpg + 10} + ${fqry}}">▶</a>
+					<a th:if="${cpg <= (((pages/10)+1)*10)}" th:href="@{'/list?cpg=' + ${(((cpg/10)*10)+1) + 10} + ${fqry}}">▶</a>
 					<a th:if="${cpg != pages}" th:href="@{'/list?cpg='+${pages} + ${fqry}}">▶▏</a>
 				</td>
 			</tr>

@@ -28,8 +28,17 @@ layout:decorate="~{fragments/layout}">
 	.dragup {
 	vertical-align: top;
 	}
+
+	.pushright {
+		margin-left: 115px;
+	}
+	.danger { color: red;
+	font-weight: bold;
+	}
 	
 </style>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </th:block>
 
 <th:block layout:fragment="main">
@@ -38,7 +47,7 @@ layout:decorate="~{fragments/layout}">
 	<form name = "boardFrm" id = "boardFrm">
 		<div>
 			<label for = "tlt">제목</label>
-			<input type = "text" name = "title" id = "tlt">
+			<input type = "text" name = "title" id = "tlt" th:value="${(bvo == null)}? '':${bvo.title}">
 		</div>
 		<div>
 			<label for = "mid">작성자</label>
@@ -46,8 +55,13 @@ layout:decorate="~{fragments/layout}">
 		</div>
 		<div>
 			<label for = "cnt" class = "dragup">본문</label>
-			<textarea cols="45" rows="7"  name = "content" id = "cnt"></textarea>
+			<textarea cols="45" rows="7"  name = "content" id = "cnt" th:text="${(bvo == null)}? '':${bvo.content}"></textarea>
 		</div>
+		<div class="g-recaptcha pushright" data-sitekey="6Lc_D1siAAAAAF2ClMlvq_KiEbjfhk8rUvV3WjzQ"></div>
+
+		<span class="pushright danger" th:text="${msg}"></span>
+
+		<input type="hidden" name="gcaptcha">
 		<div>
 			<button type = "button" id = "bdokbtn">입력완료</button>
 			<button type = "reset">다시입력</button>
@@ -63,9 +77,11 @@ bdokbtn.addEventListener('click',checkboardfrm);
 
 function checkboardfrm(){
 	let frm = document.boardFrm;
-	if (frm.title.value == '') alert('제목을 작성하세요.')
-	else if(frm.content.value == '') alert('본문을 작성하세요.')
+	if (frm.title.value == '') alert('제목을 작성하세요.');
+	else if(frm.content.value == '') alert('본문을 작성하세요.');
+	else if (grecaptcha.getResponse() == '') alert('자동가입방지를 클릭해주세요.');
 	else{
+		frm.gcaptcha.value = grecaptcha.getResponse();
 		frm.method = 'post';
 		frm.submit();
 	}
