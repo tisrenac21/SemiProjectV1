@@ -3,4 +3,43 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
+    <insert id="registerPost" statementType="PREPARED"
+            parameterType="jh.spring.mvc.vo.BoardVO">
+        insert into board (title, memberId, content) values (#{title}, #{memberId}, #{content})
+    </insert>
+
+    <select id="selectOneBoard" statementType="PREPARED"
+            parameterType="String"
+            resultType="jh.spring.mvc.vo.BoardVO">
+        select * from board where boardNo = #{boardNo}
+    </select>
+
+    <select id="selectBoard" statementType="PREPARED"
+            parameterType="Map"
+            resultType="jh.spring.mvc.vo.BoardVO">
+        select boardNo, title, memberId, regDate, readcount from board
+        <if test="fkey != ''"> where ${fkey} like #{fval} </if>
+        order by boardNo desc limit #{snum}, 25
+    </select>
+
+    <select id="selectCountBoard" statementType="PREPARED"
+            parameterType="Map"
+            resultType="int">
+        select ceil(count(boardNo)/25) pages from board <if test="fkey != ''"> where ${fkey} like #{fval} </if>
+    </select>
+
+    <update id="viewBoard" statementType="PREPARED"
+            parameterType="String">
+        update board set readcount = readcount + 1 where boardNo = #{boardNo}
+    </update>
+
+    <update id="updateBoard" statementType="PREPARED"
+            parameterType="jh.spring.mvc.vo.BoardVO">
+        update board set title = #{title}, content = #{content}, regDate = current_timestamp() where boardNo = #{boardNo}
+    </update>
+
+    <delete id="deleteBoard" statementType="PREPARED"
+            parameterType="String">
+        delete from board where boardNo = #{boardNo}
+    </delete>
 </mapper>

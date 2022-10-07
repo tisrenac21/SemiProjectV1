@@ -24,7 +24,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public List<BoardVO> readBoard(String fkey, String fval, int snum) {
 		
-		return bdao.selectBoard(fkey, fval, snum);
+		return bdao.selectBoard(fkey, fval+"%", snum);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public int readCountBoard(String fkey, String fval) {
-		return bdao.readCountBoard(fkey, fval);
+		return bdao.readCountBoard(fkey, fval+"%");
 	}
 
 	@Override
