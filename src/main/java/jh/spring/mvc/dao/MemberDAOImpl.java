@@ -37,7 +37,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public List<Zipcode> selectZipcode(String dong) {
-		return sqlSession.selectList("member.selectZipcode",dong);
+		return sqlSession.selectList("member.selectZipCode",dong);
 	}
 
 
