@@ -104,7 +104,7 @@ layout:decorate="~{fragments/layout}">
 			<tr>
 				<td colspan = "5" class ="pgnav">
 					<a th:if="${cpg > 1}" th:href="@{'/list?cpg=1' + ${fqry}}">▕◀</a>
-					<a th:if="${cpg > 10}" th:href="@{'/list?cpg=' + ${cpg - 10} + ${fqry}}">◀</a>
+					<a th:if="${cpg > 10}" th:href="@{'/list?cpg=' + ${(((cpg/10)*10)+1) - 10} + ${fqry}}">◀</a>
 					<a th:if="${cpg > 1}" th:href="@{'/list?cpg=' + ${cpg - 1} + ${fqry}}">◁</a>
 					<th:block th:each="i: ${#numbers.sequence(0, 9)}">
 						<th:block th:if="${(stpgn + i) <= pages}">
@@ -115,7 +115,7 @@ layout:decorate="~{fragments/layout}">
 						</th:block>
 					</th:block>
 					<a th:if="${cpg < pages}" th:href="@{'/list?cpg=' + ${cpg + 1} + ${fqry}}">▷</a>
-					<a th:if="${cpg <= (((pages/10)+1)*10)}" th:href="@{'/list?cpg=' + ${(((cpg/10)*10)+1) + 10} + ${fqry}}">▶</a>
+					<a th:if="${cpg <= ((pages/10)*10)}" th:href="@{'/list?cpg=' + ${(((cpg/10)*10)+1) + 10} + ${fqry}}">▶</a>
 					<a th:if="${cpg != pages}" th:href="@{'/list?cpg='+${pages} + ${fqry}}">▶▏</a>
 				</td>
 			</tr>
