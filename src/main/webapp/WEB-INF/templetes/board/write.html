@@ -50,8 +50,8 @@ layout:decorate="~{fragments/layout}">
 			<input type = "text" name = "title" id = "tlt" th:value="${(bvo == null)}? '':${bvo.title}">
 		</div>
 		<div>
-			<label for = "mid">작성자</label>
-			<input type = "text" name = "memberId" id = "mid" th:value = "${session.m.memberId}" readonly="readonly">
+			<label for = "nm">작성자</label>
+			<input type="text" name="memberName" id = "nm" th:value="${mbr.memberName}" readonly="readonly">
 		</div>
 		<div>
 			<label for = "cnt" class = "dragup">본문</label>
@@ -62,6 +62,7 @@ layout:decorate="~{fragments/layout}">
 		<span class="pushright danger" th:text="${msg}"></span>
 
 		<input type="hidden" name="gcaptcha">
+		<input type = "hidden" name = "memberId" id = "mid" th:value = "${session.m.memberId}" readonly="readonly">
 		<div>
 			<button type = "button" id = "bdokbtn">입력완료</button>
 			<button type = "reset">다시입력</button>

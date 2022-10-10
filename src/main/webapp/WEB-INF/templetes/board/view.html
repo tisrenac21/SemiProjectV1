@@ -43,8 +43,8 @@ layout:decorate="~{fragments/layout}">
 			<span th:text="${bd.title}"></span>
 		</div>
 		<div>
-			<label for = "mid">작성자</label>
-			<span th:text="${bd.memberId}"></span>
+			<label for = "nm">작성자</label>
+			<span th:text="${bd.memberName}+'('+${bd.memberId}+')'"></span>
 		</div>
 		<div>
 			<label for = "rgd">작성일</label>

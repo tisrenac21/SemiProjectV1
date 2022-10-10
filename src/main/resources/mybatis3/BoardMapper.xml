@@ -5,7 +5,7 @@
 <mapper namespace="board">
     <insert id="registerPost" statementType="PREPARED"
             parameterType="jh.spring.mvc.vo.BoardVO">
-        insert into board (title, memberId, content) values (#{title}, #{memberId}, #{content})
+        insert into board (title, memberId, content, memberName) values (#{title}, #{memberId}, #{content}, #{memberName})
     </insert>
 
     <select id="selectOneBoard" statementType="PREPARED"
@@ -17,7 +17,7 @@
     <select id="selectBoard" statementType="PREPARED"
             parameterType="Map"
             resultType="jh.spring.mvc.vo.BoardVO">
-        select boardNo, title, memberId, regDate, readcount from board
+        select boardNo, title, memberId, memberName, regDate, readcount from board
         <if test="fkey != ''"> where ${fkey} like #{fval} </if>
         order by boardNo desc limit #{snum}, 25
     </select>

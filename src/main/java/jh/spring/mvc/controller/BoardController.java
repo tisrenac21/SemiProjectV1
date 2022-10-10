@@ -1,8 +1,10 @@
 package jh.spring.mvc.controller;
 
 import jh.spring.mvc.service.BoardService;
+import jh.spring.mvc.service.MemberService;
 import jh.spring.mvc.utils.RecaptchaUtils;
 import jh.spring.mvc.vo.BoardVO;
+import jh.spring.mvc.vo.MemberVO;
 import org.apache.hc.core5.http.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ import java.io.IOException;
 
 @Controller
 public class BoardController {
+
 	
 	protected Logger LOGGER = LoggerFactory.getLogger(getClass());
 	
@@ -28,6 +31,8 @@ public class BoardController {
 	private BoardService bsrv;
 	private RecaptchaUtils grcp;
 
+	@Autowired
+	private MemberService msrv;
 	@Autowired
 	public BoardController(BoardService bsrv, RecaptchaUtils grcp){
 		this.bsrv = bsrv;
@@ -90,10 +95,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("/write")
-	public String write(HttpSession session) {
+	public String write(Model m, HttpSession session) {
+
 		String returnPage = "redirect:/login";
 		
 		if(session.getAttribute("m") != null) {
+			MemberVO mvo = (MemberVO) session.getAttribute("m");
+			m.addAttribute("mbr", msrv.readOneMember(mvo.getMemberId()));
 			returnPage = "board/write";
 		}
 		
@@ -142,6 +150,9 @@ public class BoardController {
 		}
 		else {
 			m.addAttribute("bd", bsrv.readOneBoard(boardNo));
+			MemberVO mvo = (MemberVO) session.getAttribute("m");
+			m.addAttribute("mbr", msrv.readOneMember(mvo.getMemberId()));
+
 		}
 
 		return returnPage;

@@ -44,13 +44,14 @@
 				<input type="text" th:value="${bd.title}" name="title" id="tlt">
 			</div>
 			<div>
-				<label for="mid">작성자</label>
-				<input type="text" name="memberid" id="mid" th:value="${session.m.memberId}" readonly="readonly">
+				<label for="nm"></label>
+				<input type="text" name="memberName" id="nm" th:value="${mbr.memberName}" readonly="readonly">
 			</div>
 			<div>
 				<label for="cnt" class="dragup">본문</label>
 				<textarea cols="45" rows="7" th:text="${bd.content}" name="content" id="cnt"></textarea>
 			</div>
+			<input type="hidden" name="memberid" id="mid" th:value="${session.m.memberId}" readonly="readonly">
 			<div>
 				<button type="button" id="bdokbtn">수정완료</button>
 				<button type="reset">다시입력</button>

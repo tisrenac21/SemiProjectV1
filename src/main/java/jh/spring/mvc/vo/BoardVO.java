@@ -17,5 +17,6 @@ public class BoardVO {
 	private Date regDate;
 	private int readcount;
 	private String memberId;
+	private String memberName;
 
 }
