@@ -8,11 +8,9 @@
 	header h1 {
 	text-align: center;
 	}
-	header h1 a {
-		font-family: "Agency FB";
-		font-weight: bold;
-		font-style: italic;
-		color: #676767;
+	header h1 a img {
+		width: 247.9px;
+		height: 138.5px;
 	}
 	header h1 a:link {  text-decoration: none; }
 
