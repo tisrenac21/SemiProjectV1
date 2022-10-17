@@ -1,4 +1,35 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{fragments/layout}">
+
+<th:block layout:fragment="mystyle">
+	<style>
+		table {
+			margin: 10px auto;
+		}
+		td, th { padding: 10px; }
+		th { text-align: right; }
+
+	</style>
+</th:block>
+
+<th:block layout:fragment="main">
+	<div id = "main">
+		<h1>회원 정보</h1>
+		<table>
+			<tr><th>아이디</th> <td th:text = "${mbr.memberId}"></td></tr>
+			<tr><th>이름</th> <td th:text = "${mbr.memberName}"></td></tr>
+			<tr><th>이메일</th> <td th:text = "${mbr.email}"></td></tr>
+			<tr><th>가입일</th> <td th:text = "${mbr.regDate}"></td></tr>
+		</table>
+	</div>
+</th:block>
+
+
+
+<!--
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -28,4 +59,4 @@
 		<th:block th:include = "layout/footer"></th:block>
 	</div>
 </body>
-</html>
+</html>-->

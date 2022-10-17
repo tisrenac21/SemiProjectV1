@@ -3,16 +3,23 @@
 	<h1><a href = "/"><img src="static/images/Voilian.png"></a></h1>
 <nav>
 	<ul>
-		<li><a href = "/">Home</a></li>
-		<li><a href = "/join">회원가입</a></li>
-		
 		<li th:if="${session.isEmpty()}"><a href = "/login">로그인</a></li>
-		<li th:unless="${session.isEmpty()}"><a href = "/logout">로그아웃</a></li>
-		
+		<li th:unless="${session.isEmpty()}"><a href = "" id = "btnlogout">로그아웃</a></li>
+
+		<li th:if="${session.isEmpty()}"><a href = "/join">회원가입</a></li>
+		<li th:unless="${session.isEmpty()}"><a href = "/myinfo">회원정보</a></li>
+
 		<li><a href = "/list?cpg=1">게시판</a></li>
-		<li><a href = "/myinfo">회원정보</a></li>
 	</ul>
 </nav>
 <hr />
 </header>
 </html>
+<script>
+	let btnlogout = document.getElementById('btnlogout');
+	btnlogout?.addEventListener('click', gologout)
+	function gologout() {
+		if(confirm('로그아웃 하시겠습니까?'))
+		{ location.href = '/logout' };
+	}
+</script>
